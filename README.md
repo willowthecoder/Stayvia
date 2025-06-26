@@ -3,12 +3,14 @@
 StayVia is a modern web application designed to simplify and enhance the way users discover and book unique stays around the world. 
 
 🚀 Features
-Search & Filter stays by location and Categories
-List Your Property 
-Upload Photos , Price , Description , title , location 
-A map highlighting the location of the place 
-Login , SignUp , Logout Feature using Passport
-App Sessions 
+1)Search & Filter stays by location and Categories
+2)List Your Property 
+3)Upload Photos , Price , Description , title , location 
+4)A map highlighting the location of the place 
+5)Login , SignUp , Logout Feature using Passport
+6)App Sessions 
+
+
 
 
 🧰 Tech Stack
