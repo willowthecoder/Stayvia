@@ -1,0 +1,105 @@
+<% layout("/layouts/boilerplate.ejs") -%>
+<div class="row">
+  <body>
+    <h2 class="mb-4 text-center">Glad you are making a better community</h2>
+    <div class="col-md-8">
+      <form
+        method="post"
+        action="/listings/<%=list._id%>?_method=PUT"
+        class="needs-validation"
+        novalidate
+        enctype="multipart/form-data"
+      >
+        <div class="mb-4">
+          <label class="form-label" for="title">Title</label>
+          <input
+            name="title"
+            class="form-control"
+            required
+            value=" <%=list.title%>"
+          />
+          <div class="valid-feedback">Title Looks good!</div>
+        </div>
+        <div class="mb-4">
+          <label class="form-label" for="description">Description</label>
+          <textarea name="description" class="form-control" required>
+            <%=list.description%></textarea
+          >
+          <div class="valid-feedback">Description Looks good!</div>
+        </div>
+          <div class="mb-4 col-md-4">
+            <label class="form-label" for="price">Price</label>
+            <input
+              name="price"
+              type="number"
+              min="500"
+              value="<%=list.price%>"
+              class="form-control"
+              required
+            />
+            <div class="invalid-feedback">Please choose a Price.</div>
+          </div>
+          
+          <div class="mb-4 col-md-8">
+            <label class="form-label" for="image">Image</label>
+            <!-- <input
+              type="text"
+              name="image[url]"
+              value="<%=list.image.url%>"
+              class="form-control"
+            /> -->
+            <p>Old image</p>
+            <img src="<%=neworiginalurl%> " />
+            <p>New Image</p>
+            <input
+              type="file"
+              name="image"
+              placeholder="upload image ?"
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="mb-4 col-md-4">
+             <label class="form-label" for="category">Category</label>
+                <select name="category" id="category" class="form-control" required>
+                  <option value="">Select a category</option>
+                  <option value="trending">Trending</option>
+                  <option value="mountain">Mountain</option>
+                  <option value="beach">Beach</option>
+                  <option value="snow">Snow</option>
+                  <option value="resort">Resort</option>
+                </select>
+              <div class="invalid-feedback">
+                Please select a Category.
+              </div>
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label" for="location">Location</label
+          ><input
+            name="location"
+            type="text"
+            value="<%=list.location%>"
+            class="form-control"
+            required
+          />
+          <div class="invalid-feedback">Please choose a Location.</div>
+        </div>
+        <div class="mb-4">
+          <label class="form-label" for="country">Country</label>
+
+          <input
+            name="country"
+            type="text"
+            value="<%=list.country%>"
+            class="form-control"
+            required
+          />
+          <div class="invalid-feedback">Please choose a Country .</div>
+        </div>
+        <br /><br /><button class="btn-new mb-4">Edit</button>
+      </form>
+    </div>
+  </body>
+  <script src="/js/script.js"></script>
+</div>

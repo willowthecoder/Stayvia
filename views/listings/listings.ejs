@@ -1,0 +1,55 @@
+<% layout("/layouts/boilerplate.ejs") -%>
+<body>
+  <div id="filters">
+    <div class="filter">
+      <a href="/listings?category=trending">
+        <div><i class="fa-solid fa-fire"></i></div>
+        <p>Trending</p></a
+      >
+    </div>
+    <div class="filter">
+      <a href="/listings?category=mountain">
+        <div><i class="fa-solid fa-mountain"></i></div>
+        <p>Mountains</p>
+      </a>
+    </div>
+    <div class="filter">
+      <a href="/listings?category=beach">
+        <div><i class="fa-solid fa-umbrella-beach"></i></div>
+        <p>Beaches</p>
+      </a>
+    </div>
+    <div class="filter">
+      <a href="/listings?category=snow">
+        <div><i class="fa-solid fa-snowflake"></i></div>
+        <p>Snow</p>
+      </a>
+    </div>
+    <div class="filter">
+      <a href="/listings?category=resort">
+        <div><i class="fa-solid fa-hotel"></i></div>
+        <p>Resorts</p>
+      </a>
+    </div>
+  </div>
+  <div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1">
+    <% for (let listing of alllistings){ %>
+    <a class="card-main-link" href="/listings/<%=listing._id%>">
+      <div class="card">
+        <img
+          src="<%=listing.image.url%>"
+          class="card-img-top"
+          alt="Photo of the place "
+        />
+        <div class="card-body">
+          <h5 class="card-title"><%=listing.title%></h5>
+          <h5 class="card-price">
+            &#x20B9; <%= listing.price.toLocaleString("en-IN") %>
+          </h5>
+          <p class="card-text"><%=listing.description%></p>
+        </div>
+      </div>
+    </a>
+    <%}%>
+  </div>
+</body>

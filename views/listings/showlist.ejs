@@ -1,0 +1,173 @@
+<% layout("/layouts/boilerplate.ejs") -%>
+
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-md-8">
+      <h3 class="text-center mb-4">
+        Welcome, that's a great listing you are looking at
+      </h3>
+
+      <div class="card card1">
+        <img
+          src="<%= list.image.url %>"
+          class="img-fluid show-img mx-auto d-block"
+          alt="a beautiful place to live"
+          style="max-height: 400px; object-fit: cover; border-radius: 10px"
+        />
+
+        <div class="card-body text-center mt-3">
+          <h5 class="card-title"><%= list.title %></h5>
+          <p class="card-text">
+            Listed by <%= list.owner ? list.owner.username : "Anonymous" %>
+          </p>
+          <p class="card-text"><%= list.description %></p>
+          <p class="card-text">₹ <%= list.price.toLocaleString("en-IN") %></p>
+          <p class="card-text"><%= list.location %>, <%= list.country %></p>
+        </div>
+      </div>
+
+      <% if(currUser && currUser._id.equals(list.owner._id)){ %>
+      <div class="text-center mt-4 mb-4">
+        <a
+          href="/listings/<%= list._id %>/edit"
+          class="btn btn-primary me-2 btn-edit-new"
+          >Edit Listing</a
+        >
+        <form
+          method="post"
+          action="/listings/<%= list._id %>?_method=DELETE"
+          style="display: inline"
+          class="mb-4"
+        >
+          <button class="btn btn-danger">Delete</button>
+        </form>
+      </div>
+      <% } %>
+
+      <hr />
+
+      <% if(currUser) { %>
+      <div class="text-center mt-4 mb-8">
+        <h4>Leave a review</h4>
+        <form action="/listings/<%=list._id%>/reviews" method="post">
+          <label for="rating">Rating </label>
+          <!-- <input
+            type="range"
+            name="rating"
+            min="1"
+            max="5"
+            class="form-range"
+            required
+          /> -->
+          <div class="d-flex justify-content-center mb-4">
+            <fieldset class="starability-slot">
+              <input type="radio" id="first-rate1" name="rating" value="1" />
+              <label for="first-rate1" title="Terrible">1 star</label>
+              <input type="radio" id="first-rate2" name="rating" value="2" />
+              <label for="first-rate2" title="Not good">2 stars</label>
+              <input
+                type="radio"
+                id="first-rate3"
+                name="rating"
+                value="3"
+                checked
+              />
+              <label for="first-rate3" title="Average">3 stars</label>
+              <input type="radio" id="first-rate4" name="rating" value="4" />
+              <label for="first-rate4" title="Very good">4 stars</label>
+              <input type="radio" id="first-rate5" name="rating" value="5" />
+              <label for="first-rate5" title="Amazing">5 stars</label>
+            </fieldset>
+          </div>
+          <label for="comment" class="form-label">Comments</label><br />
+          <textarea
+            name="comment"
+            rows="5"
+            cols="20"
+            class="form-control mb-4"
+            required
+          ></textarea>
+          <button class="btn btn-outline-primary dark">Submit review</button>
+        </form>
+      </div>
+      <% } %>
+
+      <div class="text-center mt-4 mb-8">
+        <h4>All reviews</h4>
+        <% for(let review of list.reviews) {%>
+        <div class="card card2">
+          <div class="card-body">
+            <h5 class="card-title"><%=review.author.username%></h5>
+            <p class="card-text"><%=review.comment%></p>
+            <div class="d-flex justify-content-center mb-4">
+              <p
+                class="starability-result card-text"
+                data-rating="<%= review.rating %>"
+              ></p>
+            </div>
+
+            <% if(currUser && currUser._id.equals(review.author._id)) { %>
+            <hr />
+            <form
+              method="POST"
+              action="/listings/<%=list._id%>/reviews/<%=review._id%>?_method=DELETE"
+            >
+              <button class="btn btn-outline-danger">Delete</button>
+            </form>
+            <% } %>
+          </div>
+        </div>
+        <% } %>
+      </div>
+      <div>
+        <div id="map"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const map = L.map("map").setView([20.5937, 78.9629], 5); // Default center: India
+
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution: "&copy; OpenStreetMap contributors",
+  }).addTo(map);
+
+  const locationString = "<%= list.location %>, <%= list.country %>";
+  const apiKey = "<%= process.env.OPENCAGE_API_KEY %>"; // Ensure this is set in your .env
+
+  async function showLocationOnMap(location) {
+    const response = await fetch(
+      `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(
+        location
+      )}&key=${apiKey}`
+    );
+
+    const data = await response.json();
+
+    if (data.results.length > 0) {
+      const { lat, lng } = data.results[0].geometry;
+
+      // Set map center
+      map.setView([lat, lng], 13);
+
+      // Optional popup directly on map
+      L.popup()
+        .setLatLng([lat, lng])
+        .setContent(`<b>${location}</b>`)
+        .openOn(map);
+
+      // Add marker
+      L.marker([lat, lng])
+        .addTo(map)
+        .bindPopup(`<b>${location}</b>`)
+        .openPopup();
+    } else {
+      console.error("Location not found:", location);
+    }
+  }
+
+  // Run on load
+  showLocationOnMap(locationString);
+</script>

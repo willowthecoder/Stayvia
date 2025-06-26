@@ -1,0 +1,30 @@
+//for testing site and database
+// app.get("/testlisting", async (req, res) => {
+//   try {
+//     const sampleListing = new listing({
+//       title: "Beach Villa",
+//       description: "A serene villa near the beach",
+//       price: 2500,
+//       location: "Pondicherry near French settlement",
+//       country: "India",
+//     });
+
+//     await sampleListing.save();
+//     console.log("Listing saved");
+//     res.status(201).send("Sample listing created successfully!");
+//   } catch (err) {
+//     console.error("Error caught:", err);
+//     res.status(500).send("Something went wrong");
+//   }
+// });
+// app.use((err, req, res, next) => {
+//   let { status = 500, message = "some error" } = err;
+//   console.log("Error occurred:", {
+//     status,
+//     message,
+//     path: req.originalUrl,
+//     method: req.method,
+//     stack: err.stack,
+//   });
+//   res.status(status).send(message);
+// });

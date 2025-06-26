@@ -1,0 +1,79 @@
+<div class="row col-md-12">
+<% layout("/layouts/boilerplate.ejs") -%>
+<body>
+  <h2 class="text-center mb-3">Glad you are making a better community</h2>
+  <div class="col-md-8 offset-2">
+  <form method="post" action="/listings" class="needs-validation" novalidate enctype="multipart/form-data">
+    <div class="mb-4">
+      <label class="form-label" for="title">Title</label>
+      <input placeholder="A nice title" name="title" class="form-control" required ></input>
+      <div class="valid-feedback">
+       Title Looks good!
+      </div>
+    </div>
+    <div class="mb-4">
+      <label class="form-label" for="description">Description</label>
+    <textarea
+      placeholder="A nice cozy description"
+      name="description"
+      class="form-control"
+      required 
+    ></textarea
+    ><div class="valid-feedback">
+     Description Looks good!
+    </div></div>
+
+<div class="mb-4 col-md-4">
+  <label class="form-label" for="price">Price</label>
+  <input name="price"  min="500" placeholder="A good price"  class="form-control" required/><div class="invalid-feedback">
+    Please choose a Price.
+  </div>
+</div>
+    
+<!-- <div class="mb-4 col-md ">
+  <label class="form-label" for="image">Image</label>
+  <input type="text" name="image"  placeholder="paste image url ?" class="form-control">
+</div> -->
+<div class="mb-4 col-md ">
+  <label class="form-label" for="image">Upload Image</label>
+  <input type="file" name="image"  placeholder="upload image ?" class="form-control">
+</div>
+
+<div class="mb-4 col-md-4">
+  <label class="form-label" for="category">Category</label>
+  <select name="category" id="category" class="form-control" required>
+    <option value="">Select a category</option>
+    <option value="trending">Trending</option>
+    <option value="mountain">Mountain</option>
+    <option value="beach">Beach</option>
+    <option value="snow">Snow</option>
+    <option value="resort">Resort</option>
+  </select>
+  <div class="invalid-feedback">
+    Please select a Category.
+  </div>
+</div>
+
+<div class="mb-4">
+  <label class="form-label" for="location">Location</label><input
+  name="location"
+  type="text"
+  placeholder="where you based ?"
+  class="form-control"
+  required
+/><div class="invalid-feedback">
+  Please choose a Location.
+</div>
+</div>
+<div class="mb-4">
+  <label class="form-label" for="country">Country</label>
+
+  <input name="country" type="text" placeholder="your home country" class="form-control" required  />
+  <div class="invalid-feedback">
+    Please choose a Country .
+  </div></div>
+<button class="btn-new mb-4" >Post Your listing , Thanks</button>
+  </form>
+</div>
+</body>
+</div>

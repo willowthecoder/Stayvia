@@ -1,0 +1,54 @@
+<style>
+  .search {
+    margin-right: 50%;
+  }
+  .search-box {
+    width: auto;
+  }
+</style>
+
+<nav class="navbar navbar-expand-md bg-body-tertiary sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/listings"
+      ><i class="fa-solid fa-signs-post"></i
+    ></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link" href="/listings ">Explore</a>
+        <a class="nav-link" href="/listings/new">Create new Listing</a>
+      </div>
+    </div>
+    <div class="search ms-auto">
+      <form class="d-flex" role="search" action="/listings" method="GET">
+        <input
+          class="search-box form-control me-2"
+          type="search"
+          placeholder="Search Destinations"
+          aria-label="Search"
+          name="search"
+        />
+        <button class="btn btn-primary" type="submit">Search</button>
+      </form>
+    </div>
+    <!-- Sign-up,log-in,log-out -->
+    <div class="navbar-nav ms-auto">
+      <% if (!currUser) { %>
+      <a class="nav-link active" aria-current="page" href="/signup">SignUp</a>
+      <a class="nav-link" href="/login ">Login</a>
+      <%}%> <% if (currUser) {%>
+      <a class="nav-link" href="/logout">Logout</a>
+      <%}%>
+    </div>
+  </div>
+</nav>
