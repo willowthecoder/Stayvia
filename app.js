@@ -42,25 +42,25 @@ async function main() {
   await mongoose.connect(atlasdb_url);
 }
 
-// const storage = MongoStore.create({
-//   mongoUrl: atlasdb_url,
-//   crypto: {
-//     secret: sessionSecret,
-//   },
-//   touchAfter: 24 * 3600, // time period in seconds
-// });
+const storage = MongoStore.create({
+  mongoUrl: atlasdb_url,
+  crypto: {
+    secret: sessionSecret,
+  },
+  touchAfter: 24 * 3600, // time period in seconds
+});
 
-// const sessionoptions = {
-//   storage,
-//   secret: sessionSecret,
-//   resave: false,
-//   saveUninitialized: false,
-//   cookie: {
-//     expires: Date.now() + 3 * 24 * 60 * 60 * 1000,
-//     maxAge: 3 * 24 * 60 * 60 * 1000,
-//     httpOnly: true,
-//   },
-// };
+const sessionoptions = {
+  storage,
+  secret: sessionSecret,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    expires: Date.now() + 3 * 24 * 60 * 60 * 1000,
+    maxAge: 3 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  },
+};
 //definations of packages
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
